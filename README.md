@@ -16,7 +16,7 @@ Le code source + commentaires en anglais
 ####Interface de jeu :
 - ajouter une barre de vie
 - changer le background
-- trouver diverses images de fruits
+- [FAIT] trouver diverses images de fruits 
 - compteur de points
 
 
@@ -28,8 +28,8 @@ Le code source + commentaires en anglais
 - Changer de skin ( hidden feature )
 
 ####Fonctionnalités :
-- Différent type de fruits
-- Tombé verticale des fruits
-- Interface de réglage de jeu ( gestion de la disposition des widgets )
+- [A AMELIORER] Différent type de fruits
+- [FAIT] Tombé verticale des fruits
+- [A AMELIORER] Interface de réglage de jeu ( gestion de la disposition des widgets )
 - afficher un panier contenant le nombre de fruits rattrapés
 - Récuperer le score de l'utlisateur pour l'afficher dans les réglages ( dernier score ) ou dans un historique.
