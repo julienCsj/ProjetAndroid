@@ -1,5 +1,6 @@
 package fr.ups.l3info.l3info_catchgameactivity;
 
+import fr.ups.l3info.l3info_catchgamedatastructure.EnumFruit;
 import fr.ups.l3info.l3info_catchgamedatastructure.Fruit;
 import fr.ups.l3info.l3info_catchgametemplate.R;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class CatchGameActivity extends Activity {
 		});
 		
 		testInitFruitList();
-		fruitView.setFruitList(fruitList);
+		//fruitView.setFruitList(fruitList);
 		
 		final Random r = new Random();
 		
@@ -58,7 +59,7 @@ public class CatchGameActivity extends Activity {
 		timerCreatingFruits.schedule(new TimerTask() {			
 			@Override
 			public void run() {
-				fruitView.addFruit(new Fruit(new Point(0,r.nextInt(1000)),100));
+				fruitView.addFruit(new Fruit(new Point(0,r.nextInt(1000)),100, EnumFruit.getRandomValue()));
 			}
 			
 		}, 0, 500);
@@ -67,7 +68,7 @@ public class CatchGameActivity extends Activity {
 
 	private void testInitFruitList() {
 		fruitList = new ArrayList<Fruit>();
-		fruitList.add(new Fruit(new Point(15, 15), 22));
+		fruitList.add(new Fruit(new Point(15, 15), 22, EnumFruit.getRandomValue()));
 		
 	}
 
