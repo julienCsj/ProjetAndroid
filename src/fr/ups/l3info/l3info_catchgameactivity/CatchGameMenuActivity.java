@@ -38,8 +38,8 @@ public class CatchGameMenuActivity  extends Activity {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				Log.i("DEBUG","Appui sur bouton JOUER");
-				Intent intent = new Intent(getBaseContext() , CatchGameActivity.class);     
-				startActivity(intent);
+				Intent jeu = new Intent(CatchGameMenuActivity.this, CatchGameActivity.class);
+	            startActivity(jeu);
 				return true;
 			}
 		});
@@ -49,6 +49,8 @@ public class CatchGameMenuActivity  extends Activity {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				Log.i("DEBUG","Appui sur bouton SCORE");
+				Intent score = new Intent(CatchGameMenuActivity.this, CatchGameScoreActivity.class);
+	            startActivity(score);
 				return true;
 			}
 		});
@@ -58,6 +60,8 @@ public class CatchGameMenuActivity  extends Activity {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				Log.i("DEBUG","Appui sur bouton OPTIONS");
+				Intent option = new Intent(CatchGameMenuActivity.this, CatchGameOptionsActivity.class);
+	            startActivity(option);
 				return true;
 			}
 		});
