@@ -20,6 +20,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import fr.ups.l3info.l3info_catchgametemplate.R;
 
 /* 
@@ -39,26 +40,43 @@ public class CatchGameView extends View {
 	Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
 	int fruitFallDelay = 100;
 	int fruitCreateDelay = 1000;
+	private TextView affScore;
+	private TextView affNbCatch;
+	private int score = 0;
+	private int nbCatch = 0;
 	//List<Fruit> fruitList;
 	Timer timerFallingFruits;
 	Timer timerCreatingFruits;
 	
+	
+	public void setComponents() {
+		affScore = (TextView)findViewById(R.id.score);
+		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
+		score = 0;
+		nbCatch = 0;
+	}
 	
 	/*
 	 * CONSTRUCTEURS
 	 */
 	public CatchGameView(Context context) {
 		super(context);
+		affScore = (TextView)findViewById(R.id.score);
+		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		fallingDownFruitsList.clear();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		affScore = (TextView)findViewById(R.id.score);
+		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		fallingDownFruitsList.clear();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		affScore = (TextView)findViewById(R.id.score);
+		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		fallingDownFruitsList.clear();
 	}
 	
@@ -102,7 +120,14 @@ public class CatchGameView extends View {
 	 */
 	private void timerFallingFruitEventHandler(){
 		for(Fruit fruit : fallingDownFruitsList) {
-			fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
+			//fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
+			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 100));
+			if(fruit.getLocationInScreen().y > 1920) {
+				this.setComponents();
+				this.score -= 20;
+				this.fallingDownFruitsList.remove(fruit);
+				//this.affScore.setText(""+score);
+			}
 			//Log.i("DEBUG", "Fruit = "+fruit);
 		}
 		this.postInvalidate();
@@ -134,19 +159,19 @@ public class CatchGameView extends View {
 		
 		for (Fruit fruit:fallingDownFruitsList) {
 			switch(fruit.getType()) {
-			case APPLE : canvas.drawBitmap(applePict, fruit.getVue().top, fruit.getVue().left,null);
+			case APPLE : canvas.drawBitmap(applePict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
-			case GRAPE : canvas.drawBitmap(grapePict, fruit.getVue().top, fruit.getVue().left,null);
+			case GRAPE : canvas.drawBitmap(grapePict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
-			case ORANGE : canvas.drawBitmap(orangePict, fruit.getVue().top, fruit.getVue().left,null);
+			case ORANGE : canvas.drawBitmap(orangePict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
-			case PAPAYA : canvas.drawBitmap(papayaPict, fruit.getVue().top, fruit.getVue().left,null);
+			case PAPAYA : canvas.drawBitmap(papayaPict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
-			case PINAPPLE : canvas.drawBitmap(pineapplePict, fruit.getVue().top, fruit.getVue().left,null);
+			case PINAPPLE : canvas.drawBitmap(pineapplePict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
-			case STRAWBERRY : canvas.drawBitmap(strawberryPict, fruit.getVue().top, fruit.getVue().left,null);
+			case STRAWBERRY : canvas.drawBitmap(strawberryPict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
-			case WATERMELON : canvas.drawBitmap(watermelonPict, fruit.getVue().top, fruit.getVue().left,null);
+			case WATERMELON : canvas.drawBitmap(watermelonPict, fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, null);
 				break;
 			}
 		}
@@ -165,20 +190,39 @@ public class CatchGameView extends View {
 	public boolean onTouchEvent(MotionEvent event) {
 	    int touchX = (int) event.getX();
 	    int touchY = (int) event.getY();
-        Log.i("DEBUG", "TouchEvent detected !");
-        for(Fruit fruit : this.fallingDownFruitsList){
-        	if(fruit.getVue().contains(touchY, touchX)) {
-        		Log.i("DEBUG" , "TOUCHER !");
-        		this.fallingDownFruitsList.remove(fruit);
-        	}
+	    boolean touched = false;
+	    
+	    int action = event.getAction();
+        switch (action) {
+        case MotionEvent.ACTION_DOWN:
+            touched = true;
+            break;
+        default: touched = false;
         }
-        /*int xRect = (int) rect.exactCenterX();
-    	int yRect = (int) rect.exactCenterY();
-    	if((touchX >= yRect - 250 && touchX <= yRect + 250) 
-    	&&( touchY >= xRect - 250 && touchY <= xRect + 250)) {
-    		Log.i("DEBUG" , "TOUCHER !");
-    		this.fallingDownFruitsList.remove(rect);
-    	}*/
+
+        if(touched) {
+        	 for(Fruit fruit : this.fallingDownFruitsList){
+             	Log.i("DEBUG" , "EVENT : ("+ touchX+ " "+ touchY +") ("+fruit.getLocationInScreen().x + " "+ fruit.getLocationInScreen().y +")");
+             	int xRect = (int) fruit.getLocationInScreen().x;
+            	int yRect = (int) fruit.getLocationInScreen().y;
+            	if((touchX >= xRect - 200 && touchX <= xRect + 200) 
+            	&&( touchY >= yRect - 200 && touchY <= yRect + 200)) {
+            		Log.i("DEBUG" , "TOUCHER ! + "+this.affScore + " "+score);
+            		this.fallingDownFruitsList.remove(fruit);
+            		this.setComponents();
+            		this.score += 10;
+            		this.nbCatch += 1;
+            		//this.affScore.setText(""+score);
+            		//this.affNbCatch.setText(""+nbCatch);
+            	}
+             }
+        }
+       
+        
+        
+        
+        
+        
 	    return true;
 	}
 

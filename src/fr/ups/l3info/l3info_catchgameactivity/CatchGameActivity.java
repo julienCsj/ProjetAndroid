@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -35,7 +36,10 @@ public class CatchGameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_catch_game);
+		
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
+		fruitView.setComponents();
+		
 		bStart = (Button)findViewById(R.id.buttonStart);
 		bStop = (Button)findViewById(R.id.buttonStop);
 		bStop.setEnabled(false);
@@ -59,7 +63,9 @@ public class CatchGameActivity extends Activity {
 		timerCreatingFruits.schedule(new TimerTask() {			
 			@Override
 			public void run() {
-				fruitView.addFruit(new Fruit(new Point(0,r.nextInt(1000)),100, EnumFruit.getRandomValue()));
+				DisplayMetrics metrics = new DisplayMetrics();
+				getWindowManager().getDefaultDisplay().getMetrics(metrics);
+				fruitView.addFruit(new Fruit(new Point(r.nextInt(metrics.widthPixels-50),0),100, EnumFruit.getRandomValue()));
 			}
 			
 		}, 0, 500);

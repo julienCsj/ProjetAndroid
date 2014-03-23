@@ -6,11 +6,11 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/btnScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/btnPlay"
+        android:layout_alignBottom="@+id/btnPlay"
         android:layout_alignParentRight="true"
         android:layout_marginRight="13dp"
         android:text="Large Text"
@@ -18,10 +18,10 @@
         android:textSize="32sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/btnOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/btnScore"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="38dp"
         android:text="Large Text"
@@ -29,7 +29,7 @@
         android:textSize="32sp" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/btnPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

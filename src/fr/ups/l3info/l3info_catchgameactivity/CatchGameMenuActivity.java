@@ -22,9 +22,9 @@ public class CatchGameMenuActivity  extends Activity {
 		setContentView(R.layout.activity_menu);
 
 
-		playButton = (TextView)findViewById(R.id.textView1);
-		scoreButton = (TextView)findViewById(R.id.textView2);
-		optionButton = (TextView)findViewById(R.id.textView3);
+		playButton = (TextView)findViewById(R.id.btnPlay);
+		scoreButton = (TextView)findViewById(R.id.btnScore);
+		optionButton = (TextView)findViewById(R.id.btnOption);
 		
 		/*playButton.setVisibility(View.INVISIBLE);
 		scoreButton.setVisibility(View.INVISIBLE);
