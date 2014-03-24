@@ -48,7 +48,6 @@ public class CatchGameView extends View {
 	
 	public void setComponents() {
 		affScore = (TextView)findViewById(R.id.score);
-		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		score = 0;
 		nbCatch = 0;
 	}
@@ -59,21 +58,18 @@ public class CatchGameView extends View {
 	public CatchGameView(Context context) {
 		super(context);
 		affScore = (TextView)findViewById(R.id.score);
-		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		fallingDownFruitsList.clear();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		affScore = (TextView)findViewById(R.id.score);
-		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		fallingDownFruitsList.clear();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		affScore = (TextView)findViewById(R.id.score);
-		affNbCatch = (TextView)findViewById(R.id.nbFruitsCatch);
 		fallingDownFruitsList.clear();
 	}
 	

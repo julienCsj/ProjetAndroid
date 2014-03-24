@@ -5,55 +5,43 @@
     android:background="@drawable/background"
     tools:context=".CatchGameActivity" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|left|right"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="000000"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <fr.ups.l3info.l3info_catchgameactivity.CatchGameView
-            android:id="@+id/l3InfoCatchGameView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="14dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_horizontal|right"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/buttonStop"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stop" />
+            android:gravity="center_horizontal|left|right"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/buttonStart"
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000000"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@style/AppBaseTheme" />
+
+            <fr.ups.l3info.l3info_catchgameactivity.CatchGameView
+                android:id="@+id/l3InfoCatchGameView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="14dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:src="@drawable/jouer" />
 
-    <TextView
-        android:id="@+id/nbFruitsCatch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="0000"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    </FrameLayout>
     
 </RelativeLayout>

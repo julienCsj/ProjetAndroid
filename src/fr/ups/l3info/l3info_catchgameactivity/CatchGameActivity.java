@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,7 @@ public class CatchGameActivity extends Activity {
 
 	List<Fruit> fruitList;
 	CatchGameView fruitView;
-	Button bStart;
-	Button bStop;
+	ImageView bStart;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,7 @@ public class CatchGameActivity extends Activity {
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		fruitView.setComponents();
 		
-		bStart = (Button)findViewById(R.id.buttonStart);
-		bStop = (Button)findViewById(R.id.buttonStop);
-		bStop.setEnabled(false);
+		bStart = (ImageView)findViewById(R.id.imageView1);
 		
 		bStart.setOnClickListener(new OnClickListener() {
 			
@@ -78,9 +76,8 @@ public class CatchGameActivity extends Activity {
 
 	private void buttonStartClickEventHandler() {
 		fruitView.initTimerFallingFruits();
-		fruitView.initTimerCreatingFruits();		
-		bStop.setEnabled(true);
-		bStart.setEnabled(false);
+		fruitView.initTimerCreatingFruits();
+		bStart.setVisibility(View.INVISIBLE);
 	}
 	
 	@Override

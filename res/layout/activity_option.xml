@@ -4,103 +4,114 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@drawable/background1" >
 
-        <TextView
-            android:id="@+id/btnPlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="43dp"
-            android:text="Options"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/btnScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnPlay"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="62dp"
-            android:text="Nombre de fruits par secondes" />
-
-        <SeekBar
-            android:id="@+id/seekBar1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnScore"
-            android:layout_marginTop="15dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1" >
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/seekBar1"
-            android:layout_alignRight="@+id/toggleButton1"
-            android:src="@drawable/orange" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:layout_weight="0.2"
+                android:orientation="vertical"
+                android:weightSum="2" >
 
-        <ToggleButton
-            android:id="@+id/toggleButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="52dp"
-            android:text="ToggleButton" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/options" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/toggleButton1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Activer le skin caché" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView4"
-            android:layout_alignLeft="@+id/imageView1"
-            android:src="@drawable/strawberry" />
+            <LinearLayout
+                android:layout_width="265dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.11"
+                android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/seekBar2"
-            android:layout_alignLeft="@+id/imageView3"
-            android:src="@drawable/pineapple" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="0.2"
+                    android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btnPlay"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/apple" />
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Nombre de fruits par secondes"
+                        android:textColor="@style/AppTheme" />
 
-        <TextView
-            android:id="@+id/btnOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seekBar1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="78dp"
-            android:text="Valeur de l&apos;acceleration (g)" />
+                    <SeekBar
+                        android:id="@+id/SeekBar01"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp" />
+                </LinearLayout>
 
-        <SeekBar
-            android:id="@+id/seekBar2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/btnOption"
-            android:layout_marginTop="20dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_weight="0.2"
+                    android:orientation="vertical" >
 
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/btnOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Gravité"
+                        android:textColor="@style/AppTheme" />
+
+                    <SeekBar
+                        android:id="@+id/seekBar2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Activer le skin caché"
+                    android:textColor="@style/AppTheme" />
+
+                <ToggleButton
+                    android:id="@+id/toggleButton1"
+                    style="@style/AppBaseTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="ToggleButton" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
