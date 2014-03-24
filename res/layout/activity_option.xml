@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Nombre de fruits par secondes"
-                        android:textColor="@style/AppTheme" />
+                        android:textColor="#000000" />
 
                     <SeekBar
                         android:id="@+id/SeekBar01"
@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Gravité"
-                        android:textColor="@style/AppTheme" />
+                        android:textColor="#000000" />
 
                     <SeekBar
                         android:id="@+id/seekBar2"
@@ -97,11 +97,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Activer le skin caché"
-                    android:textColor="@style/AppTheme" />
+                    android:textColor="#000000" />
 
                 <ToggleButton
                     android:id="@+id/toggleButton1"
-                    style="@style/AppBaseTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

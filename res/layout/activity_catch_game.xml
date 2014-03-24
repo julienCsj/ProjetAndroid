@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:text="000000"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@style/AppBaseTheme" />
+                android:textColor="#000000" />
 
             <fr.ups.l3info.l3info_catchgameactivity.CatchGameView
                 android:id="@+id/l3InfoCatchGameView1"
