@@ -34,13 +34,63 @@
             android:layout_below="@+id/btnScore"
             android:layout_marginTop="15dp" />
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar1"
+            android:layout_alignRight="@+id/toggleButton1"
+            android:src="@drawable/orange" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="52dp"
+            android:text="ToggleButton" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/toggleButton1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="Activer le skin caché" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/imageView1"
+            android:src="@drawable/strawberry" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar2"
+            android:layout_alignLeft="@+id/imageView3"
+            android:src="@drawable/pineapple" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnPlay"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/apple" />
+
         <TextView
             android:id="@+id/btnOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/seekBar1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="78dp"
             android:text="Valeur de l&apos;acceleration (g)" />
 
         <SeekBar
@@ -49,25 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/btnOption"
-            android:layout_marginTop="14dp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seekBar2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="42dp"
-            android:text="Activer le skin caché" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"
-            android:text="ToggleButton" />
+            android:layout_marginTop="20dp" />
 
     </RelativeLayout>
 

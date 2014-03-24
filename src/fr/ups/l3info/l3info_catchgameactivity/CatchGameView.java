@@ -1,7 +1,5 @@
 package fr.ups.l3info.l3info_catchgameactivity;
 
-//import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -15,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,7 +35,7 @@ public class CatchGameView extends View {
 	Bitmap pineapplePict = BitmapFactory.decodeResource(getResources(),R.drawable.pineapple);
 	Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
 	Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
-	int fruitFallDelay = 100;
+	int fruitFallDelay = 2;
 	int fruitCreateDelay = 1000;
 	private TextView affScore;
 	private TextView affNbCatch;
@@ -121,7 +118,7 @@ public class CatchGameView extends View {
 	private void timerFallingFruitEventHandler(){
 		for(Fruit fruit : fallingDownFruitsList) {
 			//fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
-			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 100));
+			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 2));
 			if(fruit.getLocationInScreen().y > 1920) {
 				this.setComponents();
 				this.score -= 20;
@@ -187,6 +184,7 @@ public class CatchGameView extends View {
 	 * Handle touch event on a fruit
 	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
 	 */
+	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 	    int touchX = (int) event.getX();
 	    int touchY = (int) event.getY();
@@ -203,8 +201,8 @@ public class CatchGameView extends View {
         if(touched) {
         	 for(Fruit fruit : this.fallingDownFruitsList){
              	Log.i("DEBUG" , "EVENT : ("+ touchX+ " "+ touchY +") ("+fruit.getLocationInScreen().x + " "+ fruit.getLocationInScreen().y +")");
-             	int xRect = (int) fruit.getLocationInScreen().x;
-            	int yRect = (int) fruit.getLocationInScreen().y;
+             	int xRect = fruit.getLocationInScreen().x;
+            	int yRect = fruit.getLocationInScreen().y;
             	if((touchX >= xRect - 200 && touchX <= xRect + 200) 
             	&&( touchY >= yRect - 200 && touchY <= yRect + 200)) {
             		Log.i("DEBUG" , "TOUCHER ! + "+this.affScore + " "+score);

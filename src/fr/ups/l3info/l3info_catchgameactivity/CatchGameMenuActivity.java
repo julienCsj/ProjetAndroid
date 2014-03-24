@@ -8,32 +8,26 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CatchGameMenuActivity  extends Activity {
 	
-	private TextView playButton;
-	private TextView scoreButton;
-	private TextView optionButton;
+	private ImageView playButton;
+	private ImageView scoreButton;
+	private ImageView optionButton;
 	private boolean firstTouch;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);
+		setContentView(R.layout.activity_menu_v2);
 		firstTouch = true;
 
-
-		playButton = (TextView)findViewById(R.id.btnPlay);
-		scoreButton = (TextView)findViewById(R.id.btnScore);
-		optionButton = (TextView)findViewById(R.id.btnOption);
 		
-		/*playButton.setVisibility(View.INVISIBLE);
-		scoreButton.setVisibility(View.INVISIBLE);
-		optionButton.setVisibility(View.INVISIBLE);*/
+		playButton = (ImageView) findViewById(R.id.ImageView06);
+		scoreButton = (ImageView) findViewById(R.id.ImageView04);
+		optionButton = (ImageView) findViewById(R.id.ImageView07);
 		
-		playButton.setText("          ");
-		scoreButton.setText("          ");
-		optionButton.setText("          ");
 		
 		playButton.setOnTouchListener(new OnTouchListener() {
 			@Override
