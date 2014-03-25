@@ -41,6 +41,7 @@ public class CatchGameActivity extends Activity {
 	private ImageView coeur2;
 	private ImageView coeur3;
 	private TextView scoreTextView;
+	private TextView basket;
 	private int fruitFallDelay = 2;
 	private int fruitCreateDelay = 1000;
 	private TextView affScore;
@@ -67,6 +68,7 @@ public class CatchGameActivity extends Activity {
 		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
 		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 		this.scoreTextView = (TextView) findViewById(R.id.score);
+		this.basket = (TextView) findViewById(R.id.basket);
 		this.life = 3;
 		
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -250,10 +252,12 @@ public class CatchGameActivity extends Activity {
             	if(this.getTouchFruitSurface(touchX, touchY, xRect, yRect)) {
             		this.fruitView.getFallingDownFruitsList().remove(fruit);
             		this.score += 20;
+            		nbCatch++;
             		runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                         	scoreTextView.setText("0000"+score);
+                        	basket.setText(""+nbCatch);
                         }
             		});
             	}
