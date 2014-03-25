@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,11 +42,14 @@ public class CatchGameActivity extends Activity {
 	private TextView affNbCatch;
 	private int score = 0;
 	private int nbCatch = 0;
-	private int life = 3;
+	private int life;
 	private Timer timerFallingFruits;
 	private Timer timerCreatingFruits;
 	private int height;
-	private int weight;
+	private int width;
+	
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,12 @@ public class CatchGameActivity extends Activity {
 		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
 		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
 		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
+		this.life = 3;
+		
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		this.height = metrics.heightPixels;
+		this.width = metrics.widthPixels;
 		
 		bStart.setOnClickListener(new OnClickListener() {
 			
@@ -76,9 +86,7 @@ public class CatchGameActivity extends Activity {
 		timerCreatingFruits.schedule(new TimerTask() {			
 			@Override
 			public void run() {
-				DisplayMetrics metrics = new DisplayMetrics();
-				getWindowManager().getDefaultDisplay().getMetrics(metrics);
-				fruitView.addFruit(new Fruit(new Point(r.nextInt(metrics.widthPixels-50),0),100, EnumFruit.getRandomValue()));
+				fruitView.addFruit(new Fruit(new Point(r.nextInt(width -50),0),100, EnumFruit.getRandomValue()));
 			}
 			
 		}, 0, 500);
@@ -147,35 +155,43 @@ public class CatchGameActivity extends Activity {
 			//fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
 			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 2));
 			if(fruit.getLocationInScreen().y > this.height) {
+				Log.i("VIE", "Une vie a été perdu");
+				this.life -= 1;
 				this.lostLife();
+				this.fruitView.getFallingDownFruitsList().remove(fruit);
 			}
 			//Log.i("DEBUG", "Fruit = "+fruit);
 		}
 		this.fruitView.postInvalidate();
 	}
 	
-	private void lostLife() {
-		switch(this.life) {
-		case 0 : this.endOfGame();
-			break;
-		case 1 : 
-			this.coeur1.setVisibility(View.INVISIBLE);
-			this.coeur2.setVisibility(View.INVISIBLE);
-			this.coeur3.setVisibility(View.VISIBLE);
-			break;
-		case 2 : 
-			this.coeur1.setVisibility(View.INVISIBLE);
-			this.coeur2.setVisibility(View.VISIBLE);
-			this.coeur3.setVisibility(View.VISIBLE);
-			break;
-		case 3 : 
-			this.coeur1.setVisibility(View.VISIBLE);
-			this.coeur2.setVisibility(View.VISIBLE);
-			this.coeur3.setVisibility(View.VISIBLE);
-			break;
-		
-		}
-		
+	public void lostLife() {
+		runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // This code will always run on the UI thread, therefore is safe to modify UI elements.
+            	Log.i("VIE", "Traitement perte vie"+life);
+            	System.out.println(life);
+            	switch(life) {
+        		case 1 : 
+        			coeur1.setVisibility(View.INVISIBLE);
+        			coeur2.setVisibility(View.INVISIBLE);
+        			coeur3.setVisibility(View.VISIBLE);
+        			break;
+        		case 2 : 
+        			coeur1.setVisibility(View.INVISIBLE);
+        			coeur2.setVisibility(View.VISIBLE);
+        			coeur3.setVisibility(View.VISIBLE);
+        			break;
+        		case 3 : 
+        			coeur1.setVisibility(View.VISIBLE);
+        			coeur2.setVisibility(View.VISIBLE);
+        			coeur3.setVisibility(View.VISIBLE);
+        			break;
+        		
+        		}
+            }
+        });
 	}
 
 	private void endOfGame() {

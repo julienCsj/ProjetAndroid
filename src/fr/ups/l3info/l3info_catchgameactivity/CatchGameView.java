@@ -36,21 +36,32 @@ public class CatchGameView extends View {
 	private Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
 	private Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
 	private List<Fruit> fallingDownFruitsList = new CopyOnWriteArrayList<Fruit>();
-	
+	private ImageView coeur1;
+	private ImageView coeur2;
+	private ImageView coeur3;
 	
 	/*
 	 * CONSTRUCTEURS
 	 */
 	public CatchGameView(Context context) {
 		super(context);
+		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
+		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
+		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
+		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
+		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
+		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
+		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 	}
 	
 	
