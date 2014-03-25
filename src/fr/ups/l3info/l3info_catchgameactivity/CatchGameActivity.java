@@ -41,7 +41,6 @@ public class CatchGameActivity extends Activity {
 	private ImageView coeur2;
 	private ImageView coeur3;
 	private TextView scoreTextView;
-	private TextView basket;
 	private int fruitFallDelay = 2;
 	private int fruitCreateDelay = 1000;
 	private TextView affScore;
@@ -68,7 +67,6 @@ public class CatchGameActivity extends Activity {
 		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
 		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 		this.scoreTextView = (TextView) findViewById(R.id.score);
-		this.basket = (TextView) findViewById(R.id.basket);
 		this.life = 3;
 		
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -253,12 +251,10 @@ public class CatchGameActivity extends Activity {
             	if(this.getTouchFruitSurface(touchX, touchY, xRect, yRect)) {
             		this.fruitView.getFallingDownFruitsList().remove(fruit);
             		this.score += 20;
-            		nbCatch++;
             		runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                         	scoreTextView.setText("0000"+score);
-                        	basket.setText(""+nbCatch);
                         }
             		});
             	}
@@ -268,8 +264,11 @@ public class CatchGameActivity extends Activity {
 	}
 	
 	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
-		int px = this.width*200/1080;
-		Log.i("INFO", "La surface en pixel autorisé est "+px);
+		int px = this.width*150/1080;
+		Log.i("INFO", "La surface en pixel autorisé est "+(xRect - px));
+		Log.i("INFO", "La surface en pixel autorisé est "+(xRect + 2*px));
+		Log.i("INFO", "La surface en pixel autorisé est "+(yRect - 2*px ));
+		Log.i("INFO", "La surface en pixel autorisé est "+(yRect + px));
 		return     touchX >= xRect - px 
 				&& touchX <= xRect + 2*px 
 				&& touchY >= yRect - 2*px 
