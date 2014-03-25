@@ -61,6 +61,8 @@ public class CatchGameActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		
 		setContentView(R.layout.activity_catch_game);
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		bStart = (ImageView)findViewById(R.id.imageView1);
@@ -89,16 +91,9 @@ public class CatchGameActivity extends Activity {
 		testInitFruitList();
 		//fruitView.setFruitList(fruitList);
 		
-		final Random r = new Random();
 		
-		Timer timerCreatingFruits = new Timer();
-		timerCreatingFruits.schedule(new TimerTask() {			
-			@Override
-			public void run() {
-				fruitView.addFruit(new Fruit(new Point(r.nextInt(width -50),0),100, EnumFruit.getRandomValue()));
-			}
-			
-		}, 0, 500);
+		
+		
 		
 	}
 
@@ -112,6 +107,15 @@ public class CatchGameActivity extends Activity {
 		this.initTimerFallingFruits();
 		this.initTimerCreatingFruits();
 		bStart.setVisibility(View.INVISIBLE);
+		Timer timerCreatingFruits = new Timer();
+		timerCreatingFruits.schedule(new TimerTask() {			
+			@Override
+			public void run() {
+				final Random r = new Random();
+				fruitView.addFruit(new Fruit(new Point(r.nextInt(width -50),0),100, EnumFruit.getRandomValue()));
+			}
+			
+		}, 0, 500);
 	}
 	
 	@Override
@@ -215,6 +219,8 @@ public class CatchGameActivity extends Activity {
 	private void endOfGame() {
 		this.timerFallingFruits.cancel();
 		this.timerCreatingFruits.cancel();
+		this.fruitView.getFallingDownFruitsList().clear();
+		
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		int size = prefs.getAll().size();
 		Editor editor = prefs.edit();
@@ -223,6 +229,11 @@ public class CatchGameActivity extends Activity {
 		}
 		editor.putInt("lastscore", this.score);
 		editor.commit();
+		runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+            	bStart.setVisibility(View.VISIBLE);
+            }});
 	}
 
 	// Faire apparaitre un fruit
