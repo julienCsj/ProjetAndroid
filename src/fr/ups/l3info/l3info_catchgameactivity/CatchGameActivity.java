@@ -268,15 +268,14 @@ public class CatchGameActivity extends Activity {
 	}
 	
 	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
-		int px = this.width*150/1080;
-		Log.i("INFO", "La surface en pixel autorisé est "+(xRect - px));
-		Log.i("INFO", "La surface en pixel autorisé est "+(xRect + 2*px));
-		Log.i("INFO", "La surface en pixel autorisé est "+(yRect - 2*px ));
-		Log.i("INFO", "La surface en pixel autorisé est "+(yRect + px));
-		return     touchX >= xRect - px 
+		int px = this.width*200/1080;
+		int py = this.width*200/1980;
+		Log.i("INFO", "La surface en pixel autorisé est "+px);
+		Log.i("INFO", "La surface en pixel autorisé est "+py);
+		return     touchX >= xRect 
 				&& touchX <= xRect + 2*px 
-				&& touchY >= yRect - 2*px 
-				&& touchY <= yRect + px;
+				&& touchY >= yRect - 2*py 
+				&& touchY <= yRect + py;
 	}
 	
 	public int getFruitBottom(){
