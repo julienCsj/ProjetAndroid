@@ -14,9 +14,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import fr.ups.l3info.l3info_catchgametemplate.R;
 
@@ -26,122 +28,31 @@ import fr.ups.l3info.l3info_catchgametemplate.R;
  * To be modified to implement your own version of the game
  */
 public class CatchGameView extends View {
-
-	List<Fruit> fallingDownFruitsList = new CopyOnWriteArrayList<Fruit>();
-	Bitmap applePict = BitmapFactory.decodeResource(getResources(),R.drawable.apple);
-	Bitmap grapePict = BitmapFactory.decodeResource(getResources(),R.drawable.grape);
-	Bitmap orangePict = BitmapFactory.decodeResource(getResources(),R.drawable.orange);
-	Bitmap papayaPict = BitmapFactory.decodeResource(getResources(),R.drawable.papaya);
-	Bitmap pineapplePict = BitmapFactory.decodeResource(getResources(),R.drawable.pineapple);
-	Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
-	Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
-	int fruitFallDelay = 2;
-	int fruitCreateDelay = 1000;
-	private TextView affScore;
-	private TextView affNbCatch;
-	private int score = 0;
-	private int nbCatch = 0;
-	//List<Fruit> fruitList;
-	Timer timerFallingFruits;
-	Timer timerCreatingFruits;
+	private Bitmap applePict = BitmapFactory.decodeResource(getResources(),R.drawable.apple);
+	private Bitmap grapePict = BitmapFactory.decodeResource(getResources(),R.drawable.grape);
+	private Bitmap orangePict = BitmapFactory.decodeResource(getResources(),R.drawable.orange);
+	private Bitmap papayaPict = BitmapFactory.decodeResource(getResources(),R.drawable.papaya);
+	private Bitmap pineapplePict = BitmapFactory.decodeResource(getResources(),R.drawable.pineapple);
+	private Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
+	private Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
+	private List<Fruit> fallingDownFruitsList = new CopyOnWriteArrayList<Fruit>();
 	
-	
-	public void setComponents() {
-		affScore = (TextView)findViewById(R.id.score);
-		score = 0;
-		nbCatch = 0;
-	}
 	
 	/*
 	 * CONSTRUCTEURS
 	 */
 	public CatchGameView(Context context) {
 		super(context);
-		affScore = (TextView)findViewById(R.id.score);
-		fallingDownFruitsList.clear();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		affScore = (TextView)findViewById(R.id.score);
-		fallingDownFruitsList.clear();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		affScore = (TextView)findViewById(R.id.score);
-		fallingDownFruitsList.clear();
 	}
 	
-	
-	/*
-	 * Timer qui fait apparaitre les fruits
-	 */
-	public void initTimerCreatingFruits(){
-		timerCreatingFruits = new Timer();
-		timerCreatingFruits.schedule(new TimerTask() {			
-			@Override
-			public void run() {
-				timerCreateFruitEventHandler();
-			}
-			
-		}, 0, fruitCreateDelay);
-		
-	}
-	
-	/*
-	 * Timer qui fait descendre les fruits
-	 */
-	public void initTimerFallingFruits(){
-		timerFallingFruits = new Timer();
-		timerFallingFruits.schedule(new TimerTask() {			
-			@Override
-			public void run() {
-				timerFallingFruitEventHandler();
-			}
-			
-		}, 0, fruitFallDelay);
-		
-	}
-	
-	public void stopTimer(){
-		timerFallingFruits.cancel();
-	}
-	
-	/*
-	 * EVENT HANDLER
-	 */
-	private void timerFallingFruitEventHandler(){
-		for(Fruit fruit : fallingDownFruitsList) {
-			//fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
-			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 2));
-			if(fruit.getLocationInScreen().y > 1920) {
-				this.setComponents();
-				this.score -= 20;
-				this.fallingDownFruitsList.remove(fruit);
-				//this.affScore.setText(""+score);
-			}
-			//Log.i("DEBUG", "Fruit = "+fruit);
-		}
-		this.postInvalidate();
-	}
-	
-	// Faire apparaitre un fruit
-	private void timerCreateFruitEventHandler(){
-		//this.fallingDownFruitsList.add(new Rect(0, 200, 50, 50));
-		
-	}
-	
-	
-	/*public void setFruitList(List<Fruit> fruitList){
-		this.fruitList = fruitList;
-		Rect fruitBounds;
-		fallingDownFruitsList.clear();
-		for (Fruit fruit:fruitList){
-			fruitBounds = new Rect(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y, 2*(fruit.getRadius()), 2*(fruit.getRadius()));
-			fallingDownFruitsList.add(fruitBounds);
-		}
-	}*/
 	
 	
 	@Override
@@ -176,6 +87,12 @@ public class CatchGameView extends View {
 		fallingDownFruitsList.add(fruit);
 	}
 	
+	
+	
+	public List<Fruit> getFallingDownFruitsList() {
+		return fallingDownFruitsList;
+	}
+
 	/* 
 	 * Handle touch event on a fruit
 	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
@@ -201,27 +118,10 @@ public class CatchGameView extends View {
             	int yRect = fruit.getLocationInScreen().y;
             	if((touchX >= xRect - 200 && touchX <= xRect + 200) 
             	&&( touchY >= yRect - 200 && touchY <= yRect + 200)) {
-            		Log.i("DEBUG" , "TOUCHER ! + "+this.affScore + " "+score);
             		this.fallingDownFruitsList.remove(fruit);
-            		this.setComponents();
-            		this.score += 10;
-            		this.nbCatch += 1;
-            		//this.affScore.setText(""+score);
-            		//this.affNbCatch.setText(""+nbCatch);
             	}
              }
-        }
-       
-        
-        
-        
-        
-        
+        } 
 	    return true;
-	}
-
-
-	public void setFruitFallDelay(int delay){
-		fruitFallDelay = delay;
 	}
 }
