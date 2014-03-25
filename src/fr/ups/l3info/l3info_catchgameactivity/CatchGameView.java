@@ -37,6 +37,16 @@ public class CatchGameView extends View {
 	private Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
 	private Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
 	private List<Fruit> fallingDownFruitsList = new CopyOnWriteArrayList<Fruit>();
+=======
+	private Bitmap applePict = BitmapFactory.decodeResource(getResources(),R.drawable.apple);
+	private Bitmap grapePict = BitmapFactory.decodeResource(getResources(),R.drawable.grape);
+	private Bitmap orangePict = BitmapFactory.decodeResource(getResources(),R.drawable.orange);
+	private Bitmap papayaPict = BitmapFactory.decodeResource(getResources(),R.drawable.papaya);
+	private Bitmap pineapplePict = BitmapFactory.decodeResource(getResources(),R.drawable.pineapple);
+	private Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
+	private Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
+	private List<Fruit> fallingDownFruitsList = new CopyOnWriteArrayList<Fruit>();
+>>>>>>> Re do all the application structure
 
 	/*
 	 * CONSTRUCTEURS
@@ -54,6 +64,9 @@ public class CatchGameView extends View {
 	}
 	
 	
+<<<<<<< HEAD
+=======
+>>>>>>> Re do all the application structure
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -93,6 +106,10 @@ public class CatchGameView extends View {
 		return fallingDownFruitsList;
 	}
 
+	
+	
+	public List<Fruit> getFallingDownFruitsList() {
+		return fallingDownFruitsList;
 	/* 
 	 * Handle touch event on a fruit
 	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
