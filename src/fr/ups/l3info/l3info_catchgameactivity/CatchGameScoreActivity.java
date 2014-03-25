@@ -26,16 +26,15 @@ public class CatchGameScoreActivity extends Activity {
 		
 		ArrayList<String> values = new ArrayList<String>();
 		
-		for (int i = 0;i<prefs.getAll().size();i++){
-			int num = i+1;
-			values.add(num+" - "+prefs.getInt("score"+i, 0));
-		}
+		values.add("Dernier score - "+prefs.getInt("lastscore", 0));
+		values.add("Meilleur score - "+prefs.getInt("bestscore", 0));
+
 		
 		liste = (ListView)findViewById(R.id.listView1);
-		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-	    // Assign adapter to ListView
-		//liste.setAdapter(adapter); 
+	    //Assign adapter to ListView
+		liste.setAdapter(adapter); 
 	}
 
 	@Override

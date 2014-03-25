@@ -218,9 +218,10 @@ public class CatchGameActivity extends Activity {
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		int size = prefs.getAll().size();
 		Editor editor = prefs.edit();
-		editor.putInt("score"+size, this.score);
-		Log.i("LOG", "Size = "+size);
-		Log.i("LOG", "Score = "+prefs.getInt("score"+size, 0));
+		if (this.score > prefs.getInt("bestscore", 0)) {
+			editor.putInt("bestscore", this.score);
+		}
+		editor.putInt("lastscore", this.score);
 		editor.commit();
 	}
 
@@ -268,8 +269,11 @@ public class CatchGameActivity extends Activity {
 	
 	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
 		int px = this.width*200/1080;
-		return (touchX >= xRect - px && touchX <= xRect + px) 
-    	&&( touchY >= yRect - px && touchY <= yRect + px);
+		Log.i("INFO", "La surface en pixel autorisé est "+px);
+		return     touchX >= xRect - px 
+				&& touchX <= xRect + 2*px 
+				&& touchY >= yRect - 2*px 
+				&& touchY <= yRect + px;
 	}
 	
 	public int getFruitBottom(){
