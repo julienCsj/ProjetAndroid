@@ -161,9 +161,8 @@ public class CatchGameActivity extends Activity {
 			if(fruit.getLocationInScreen().y > this.height) {
 				Log.i("VIE", "Une vie a été perdu");
 				this.life -= 1;
-				if(this.life > 0) {
-					this.lostLife();
-				} else {
+				this.lostLife();
+				if(this.life == 0) {
 					this.endOfGame();
 				}
 				
@@ -182,7 +181,12 @@ public class CatchGameActivity extends Activity {
             	Log.i("VIE", "Traitement perte vie"+life);
             	System.out.println(life);
             	switch(life) {
-        		case 1 : 
+            	case 0 : 
+        			coeur1.setVisibility(View.INVISIBLE);
+        			coeur2.setVisibility(View.INVISIBLE);
+        			coeur3.setVisibility(View.INVISIBLE);
+        			break;
+            	case 1 : 
         			coeur1.setVisibility(View.INVISIBLE);
         			coeur2.setVisibility(View.INVISIBLE);
         			coeur3.setVisibility(View.VISIBLE);
