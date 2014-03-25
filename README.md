@@ -1,6 +1,8 @@
 ProjetAndroid
 =============
 
+Le Trello : https://trello.com/b/cedQfBJz/catch-game
+
 ##Installation
 
 - Récuperer le code en archive ici : https://github.com/julienCsj/ProjetAndroid/archive/master.zip
