@@ -271,10 +271,10 @@ public class CatchGameActivity extends Activity {
 		int px = this.width*200/1080;
 		int py = this.width*200/1980;
 		Log.i("INFO", "La surface en pixel autorisé est "+xRect+" "+touchX+" "+(xRect + 2*px));
-		Log.i("INFO", "La surface en pixel autorisé est "+(yRect - py)+" "+touchY+" "+(yRect + 3*py));
+		Log.i("INFO", "La surface en pixel autorisé est "+(yRect - 3*py)+" "+touchY+" "+(yRect + py));
 		return     touchX >= xRect 
 				&& touchX <= xRect + 2*px 
-				&& touchY >= yRect - 2*py 
+				&& touchY >= yRect - 3*py 
 				&& touchY <= yRect + py;
 	}
 	
