@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import fr.ups.l3info.l3info_catchgamedatastructure.Fruit;
 import android.R.color;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -41,6 +42,7 @@ public class CatchGameView extends View {
 	private TextView affNbCatch;
 	private int score = 0;
 	private int nbCatch = 0;
+	private int life = 3;
 	//List<Fruit> fruitList;
 	Timer timerFallingFruits;
 	Timer timerCreatingFruits;
@@ -117,11 +119,18 @@ public class CatchGameView extends View {
 			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 2));
 			if(fruit.getLocationInScreen().y > 1920) {
 				this.setComponents();
-				this.score -= 20;
 				this.fallingDownFruitsList.remove(fruit);
 				//this.affScore.setText(""+score);
 			}
 			//Log.i("DEBUG", "Fruit = "+fruit);
+			if (life == 0) {
+				// Structure to save scores.
+				SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
+				int size = prefs.getAll().size();
+				Editor editor = prefs.edit();
+				editor.putInt(size, this.score);
+				editor.commit();
+			}
 		}
 		this.postInvalidate();
 	}
