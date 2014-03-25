@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fr.ups.l3info.l3info_catchgametemplate.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -20,10 +21,10 @@ public class CatchGameScoreActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_score);
 		
-	/*	// Structure to save scores.
+		// Structure to save scores.
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		
-		ArrayList<String> values = new ArrayList<>();
+		ArrayList<String> values = new ArrayList<String>();
 		
 		for (int i = 0;i<prefs.getAll().size();i++){
 			int num = i+1;
