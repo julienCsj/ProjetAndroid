@@ -104,8 +104,15 @@ public class CatchGameActivity extends Activity {
 	}
 
 	private void buttonStartClickEventHandler() {
+		this.timerCreatingFruits = null;
+		this.timerFallingFruits = null;
+		
 		this.initTimerFallingFruits();
 		this.initTimerCreatingFruits();
+		this.life = 3;
+		this.score = 0;
+		this.nbCatch = 0;
+		this.lostLife();
 		bStart.setVisibility(View.INVISIBLE);
 		Timer timerCreatingFruits = new Timer();
 		timerCreatingFruits.schedule(new TimerTask() {			
@@ -229,6 +236,7 @@ public class CatchGameActivity extends Activity {
 		}
 		editor.putInt("lastscore", this.score);
 		editor.commit();
+		
 		runOnUiThread(new Runnable() {
             @Override
             public void run() {
