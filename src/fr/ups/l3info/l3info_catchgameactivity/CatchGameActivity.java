@@ -214,6 +214,8 @@ public class CatchGameActivity extends Activity {
 		int size = prefs.getAll().size();
 		Editor editor = prefs.edit();
 		editor.putInt("score"+size, this.score);
+		Log.i("LOG", "Size = "+size);
+		Log.i("LOG", "Score = "+prefs.getInt("score"+size, 0));
 		editor.commit();
 	}
 
