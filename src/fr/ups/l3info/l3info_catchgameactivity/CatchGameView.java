@@ -37,34 +37,20 @@ public class CatchGameView extends View {
 	private Bitmap strawberryPict = BitmapFactory.decodeResource(getResources(),R.drawable.strawberry);
 	private Bitmap watermelonPict = BitmapFactory.decodeResource(getResources(),R.drawable.watermelon);
 	private List<Fruit> fallingDownFruitsList = new CopyOnWriteArrayList<Fruit>();
-	private ImageView coeur1;
-	private ImageView coeur2;
-	private ImageView coeur3;
-	
+
 	/*
 	 * CONSTRUCTEURS
 	 */
 	public CatchGameView(Context context) {
 		super(context);
-		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
-		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
-		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
-		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
-		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
-		this.coeur2 = (ImageView) findViewById(R.id.coeur2);
-		this.coeur3 = (ImageView) findViewById(R.id.coeur3);
-		this.width = this.getWidth();
-		this.height = this.getHeight();
 	}
 	
 	
@@ -111,40 +97,5 @@ public class CatchGameView extends View {
 	 * Handle touch event on a fruit
 	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
 	 */
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-	    int touchX = (int) event.getX();
-	    int touchY = (int) event.getY();
-	    boolean touched = false;
-	    
-	    int action = event.getAction();
-        switch (action) {
-        case MotionEvent.ACTION_DOWN:
-            touched = true;
-            break;
-        default: touched = false;
-        }
-
-        if(touched) {
-        	 for(Fruit fruit : this.fallingDownFruitsList){
-             	Log.i("DEBUG" , "EVENT : ("+ touchX+ " "+ touchY +") ("+fruit.getLocationInScreen().x + " "+ fruit.getLocationInScreen().y +")");
-             	int xRect = fruit.getLocationInScreen().x;
-            	int yRect = fruit.getLocationInScreen().y;
-            	if(this.getTouchFruitSurface(touchX, touchY, xRect, yRect)) {
-            		this.fallingDownFruitsList.remove(fruit);
-            	}
-             }
-        } 
-	    return true;
-	}
 	
-	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
-		int px = this.width*200/1080;
-		return (touchX >= xRect - px && touchX <= xRect + px) 
-    	&&( touchY >= yRect - px && touchY <= yRect + px);
-	}
-	
-	public int getFruitBottom(){
-		return this.width/2;
-	}
 }

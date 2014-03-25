@@ -20,7 +20,7 @@ public class CatchGameScoreActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_score);
 		
-		// Structure to save scores.
+	/*	// Structure to save scores.
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		
 		ArrayList<String> values = new ArrayList<>();
@@ -31,10 +31,10 @@ public class CatchGameScoreActivity extends Activity {
 		}
 		
 		liste = (ListView)findViewById(R.id.listView1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
 	    // Assign adapter to ListView
-		liste.setAdapter(adapter); 
+		//liste.setAdapter(adapter); 
 	}
 
 	@Override
