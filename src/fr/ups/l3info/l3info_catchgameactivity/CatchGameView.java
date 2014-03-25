@@ -15,8 +15,10 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import fr.ups.l3info.l3info_catchgametemplate.R;
 
@@ -44,7 +46,8 @@ public class CatchGameView extends View {
 	//List<Fruit> fruitList;
 	Timer timerFallingFruits;
 	Timer timerCreatingFruits;
-	
+	private int width;
+	private int height;
 	
 	public void setComponents() {
 		affScore = (TextView)findViewById(R.id.score);
@@ -59,21 +62,27 @@ public class CatchGameView extends View {
 		super(context);
 		affScore = (TextView)findViewById(R.id.score);
 		fallingDownFruitsList.clear();
+		this.initScreenDimension();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		affScore = (TextView)findViewById(R.id.score);
 		fallingDownFruitsList.clear();
+		this.initScreenDimension();
 	}
 	
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		affScore = (TextView)findViewById(R.id.score);
 		fallingDownFruitsList.clear();
+		this.initScreenDimension();
 	}
 	
-	
+	public void initScreenDimension(){
+		this.width = this.getWidth();
+		this.height = this.getHeight();
+	}
 	/*
 	 * Timer qui fait apparaitre les fruits
 	 */
@@ -115,7 +124,8 @@ public class CatchGameView extends View {
 		for(Fruit fruit : fallingDownFruitsList) {
 			//fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
 			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 2));
-			if(fruit.getLocationInScreen().y > 1920) {
+			
+			if(fruit.getLocationInScreen().y > this.getFruitBottom()) {
 				this.setComponents();
 				this.score -= 20;
 				this.fallingDownFruitsList.remove(fruit);
@@ -199,8 +209,7 @@ public class CatchGameView extends View {
              	Log.i("DEBUG" , "EVENT : ("+ touchX+ " "+ touchY +") ("+fruit.getLocationInScreen().x + " "+ fruit.getLocationInScreen().y +")");
              	int xRect = fruit.getLocationInScreen().x;
             	int yRect = fruit.getLocationInScreen().y;
-            	if((touchX >= xRect - 200 && touchX <= xRect + 200) 
-            	&&( touchY >= yRect - 200 && touchY <= yRect + 200)) {
+            	if(this.getTouchFruitSurface(touchX, touchY, xRect, yRect)) {
             		Log.i("DEBUG" , "TOUCHER ! + "+this.affScore + " "+score);
             		this.fallingDownFruitsList.remove(fruit);
             		this.setComponents();
@@ -223,5 +232,15 @@ public class CatchGameView extends View {
 
 	public void setFruitFallDelay(int delay){
 		fruitFallDelay = delay;
+	}
+	
+	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
+		int px = this.width*200/1080;
+		return (touchX >= xRect - px && touchX <= xRect + px) 
+    	&&( touchY >= yRect - px && touchY <= yRect + px);
+	}
+	
+	public int getFruitBottom(){
+		return this.width/2;
 	}
 }
