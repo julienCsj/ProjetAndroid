@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -157,7 +158,12 @@ public class CatchGameActivity extends Activity {
 			if(fruit.getLocationInScreen().y > this.height) {
 				Log.i("VIE", "Une vie a été perdu");
 				this.life -= 1;
-				this.lostLife();
+				if(this.life > 0) {
+					this.lostLife();
+				} else {
+					this.endOfGame();
+				}
+				
 				this.fruitView.getFallingDownFruitsList().remove(fruit);
 			}
 			//Log.i("DEBUG", "Fruit = "+fruit);
@@ -195,7 +201,8 @@ public class CatchGameActivity extends Activity {
 	}
 
 	private void endOfGame() {
-		// TODO Auto-generated method stub
+		this.timerFallingFruits.cancel();
+		this.timerCreatingFruits.cancel();
 		
 	}
 
@@ -203,6 +210,43 @@ public class CatchGameActivity extends Activity {
 	private void timerCreateFruitEventHandler(){
 		//this.fallingDownFruitsList.add(new Rect(0, 200, 50, 50));
 		
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+	    int touchX = (int) event.getX();
+	    int touchY = (int) event.getY();
+	    boolean touched = false;
+	    
+	    int action = event.getAction();
+        switch (action) {
+        case MotionEvent.ACTION_DOWN:
+            touched = true;
+            break;
+        default: touched = false;
+        }
+
+        if(touched) {
+        	 for(Fruit fruit : this.fruitView.getFallingDownFruitsList()){
+             	Log.i("DEBUG" , "EVENT : ("+ touchX+ " "+ touchY +") ("+fruit.getLocationInScreen().x + " "+ fruit.getLocationInScreen().y +")");
+             	int xRect = fruit.getLocationInScreen().x;
+            	int yRect = fruit.getLocationInScreen().y;
+            	if(this.getTouchFruitSurface(touchX, touchY, xRect, yRect)) {
+            		this.fruitView.getFallingDownFruitsList().remove(fruit);
+            	}
+             }
+        } 
+	    return true;
+	}
+	
+	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
+		int px = this.width*200/1080;
+		return (touchX >= xRect - px && touchX <= xRect + px) 
+    	&&( touchY >= yRect - px && touchY <= yRect + px);
+	}
+	
+	public int getFruitBottom(){
+		return this.width/2;
 	}
 	
 
