@@ -57,12 +57,10 @@ public class CatchGameView extends View {
 	public CatchGameView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		this.initScreenDimension();
+	}
 	public void initScreenDimension(){
 		this.width = this.getWidth();
 		this.height = this.getHeight();
-	}
-			
-			if(fruit.getLocationInScreen().y > this.getFruitBottom()) {
 	}
 	
 	
@@ -135,7 +133,6 @@ public class CatchGameView extends View {
         } 
 	    return true;
 	}
-	}
 	
 	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
 		int px = this.width*200/1080;
@@ -145,4 +142,5 @@ public class CatchGameView extends View {
 	
 	public int getFruitBottom(){
 		return this.width/2;
+	}
 }
