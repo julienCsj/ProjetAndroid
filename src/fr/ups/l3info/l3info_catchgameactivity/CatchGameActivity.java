@@ -213,7 +213,10 @@ public class CatchGameActivity extends Activity {
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		int size = prefs.getAll().size();
 		Editor editor = prefs.edit();
-		editor.putInt("score"+size, this.score);
+		if (this.score > prefs.getInt("bestscore", 0)) {
+			editor.putInt("bestscore", this.score);
+		}
+		editor.putInt("lastscore", this.score);
 		editor.commit();
 	}
 
