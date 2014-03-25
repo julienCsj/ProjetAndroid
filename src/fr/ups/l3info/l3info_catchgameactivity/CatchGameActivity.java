@@ -180,7 +180,12 @@ public class CatchGameActivity extends Activity {
 
 	private void endOfGame() {
 		// TODO Auto-generated method stub
-		
+		// Structure to save scores.
+		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
+		int size = prefs.getAll().size();
+		Editor editor = prefs.edit();
+		editor.putInt("score"+size, this.score);
+		editor.commit();
 	}
 
 	// Faire apparaitre un fruit

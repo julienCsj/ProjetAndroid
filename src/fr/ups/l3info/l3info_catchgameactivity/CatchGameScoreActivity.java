@@ -24,28 +24,14 @@ public class CatchGameScoreActivity extends Activity {
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		
 		ArrayList<String> values = new ArrayList<>();
-		int i = 1;
-		for (Integer score : prefs.getAll().values()) {
-			values.add("#"+i+" - "+score);
-			i++;
-		}
-		//int lastScore = prefs.getInt(prefs.getAll().size()-1, 0);
-		//int bestScore = prefs.getAll().;
-		//liste.set
 		
-		/*String[] values = new String[] { "#1 - 125", 
-                "#2 - 118",
-                "#3 - 105",
-                "#4 - 97", 
-                "#5 - 74", 
-                "#6 - 52", 
-                "#7 - 15", 
-                "#8 - 14" 
-               };*/
+		for (int i = 0;i<prefs.getAll().size();i++){
+			int num = i+1;
+			values.add(num+" - "+prefs.getInt("score"+i, 0));
+		}
 		
 		liste = (ListView)findViewById(R.id.listView1);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
 
 	    // Assign adapter to ListView
 		liste.setAdapter(adapter); 
