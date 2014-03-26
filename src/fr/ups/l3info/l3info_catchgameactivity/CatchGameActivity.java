@@ -6,6 +6,7 @@ import fr.ups.l3info.l3info_catchgametemplate.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Point;
@@ -37,13 +38,14 @@ public class CatchGameActivity extends Activity {
 	private CatchGameView fruitView;
 	
 	private ImageView bStart;
+	private ImageView bRegame;
 	private ImageView coeur1;
 	private ImageView coeur2;
 	private ImageView coeur3;
 	private TextView scoreTextView;
 	private TextView basket;
-	private int fruitFallDelay = 2;
-	private int fruitCreateDelay = 1000;
+	private int fruitFallDelay;
+	private int fruitCreateDelay;
 	private TextView affScore;
 	private TextView affNbCatch;
 	private int score = 0;
@@ -76,42 +78,34 @@ public class CatchGameActivity extends Activity {
 		this.height = metrics.heightPixels;
 		this.width = metrics.widthPixels;
 		
+		fruitCreateDelay = 1000;
+		fruitFallDelay = 2;
+
+		bStart.setVisibility(View.INVISIBLE);
+		buttonStartClickEventHandler();
+
+		//Bypass
 		bStart.setOnClickListener(new OnClickListener() {
-			
-			@Override
 			public void onClick(View v) {
+				v.setVisibility(View.INVISIBLE);
 				buttonStartClickEventHandler();
-				
 			}
-
 		});
-		
-		testInitFruitList();
-		//fruitView.setFruitList(fruitList);
-		
-		final Random r = new Random();
-		
-		Timer timerCreatingFruits = new Timer();
-		timerCreatingFruits.schedule(new TimerTask() {			
-			@Override
-			public void run() {
-				fruitView.addFruit(new Fruit(new Point(r.nextInt(width -50),0),100, EnumFruit.getRandomValue()));
-			}
-			
-		}, 0, 500);
-		
-	}
-
-	private void testInitFruitList() {
 		fruitList = new ArrayList<Fruit>();
-		fruitList.add(new Fruit(new Point(15, 15), 22, EnumFruit.getRandomValue()));
-		
 	}
 
 	private void buttonStartClickEventHandler() {
-		this.initTimerFallingFruits();
+		timerFallingFruits = null;
+		timerCreatingFruits = null;
 		this.initTimerCreatingFruits();
-		bStart.setVisibility(View.INVISIBLE);
+		this.initTimerFallingFruits();
+		this.life = 3;
+		this.score = 0;
+		this.nbCatch = 0;
+	}
+
+	private void buttonRegameClickEventHandler() {
+		this.buttonStartClickEventHandler();
 	}
 	
 	@Override
@@ -131,12 +125,33 @@ public class CatchGameActivity extends Activity {
 			@Override
 			public void run() {
 				timerCreateFruitEventHandler();
+				final Random r = new Random();
+				switch( r.nextInt(4)){
+					case 0 :
+						fruitCreateDelay = 800;
+						break;
+					case 1 :
+						fruitCreateDelay = 600;
+						break;
+					case 2 :
+						fruitCreateDelay = 400;
+						break;
+					default :
+						fruitCreateDelay = 200;
+				}
+				initTimerCreatingFruits();
 			}
 			
-		}, 0, fruitCreateDelay);
+		}, fruitCreateDelay);
 		
 	}
-	
+
+	// Faire apparaitre un fruit
+	private void timerCreateFruitEventHandler(){
+		//this.fallingDownFruitsList.add(new Rect(0, 200, 50, 50));
+		final Random r = new Random();
+		fruitView.addFruit(new Fruit(new Point(r.nextInt(width -80)+40,0),this.getWidthFruit(), EnumFruit.getRandomValue()));
+	}
 	/*
 	 * Timer qui fait descendre les fruits
 	 */
@@ -149,20 +164,13 @@ public class CatchGameActivity extends Activity {
 			}
 			
 		}, 0, fruitFallDelay);
-		
 	}
-	
-	public void stopTimer(){
-		timerFallingFruits.cancel();
-	}
-	
 	/*
 	 * EVENT HANDLER
 	 */
 	private void timerFallingFruitEventHandler(){
 		for(Fruit fruit : this.fruitView.getFallingDownFruitsList()) {
-			//fruit.getVue().offset(100, 0); // if we want add wind, modify second parameter
-			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, fruit.getLocationInScreen().y + 2));
+			fruit.setLocationInScreen(new Point(fruit.getLocationInScreen().x, this.getFruitYFalling(fruit.getLocationInScreen().y)));
 			if(fruit.getLocationInScreen().y > this.height) {
 				Log.i("VIE", "Une vie a été perdu");
 				this.life -= 1;
@@ -170,13 +178,34 @@ public class CatchGameActivity extends Activity {
 				if(this.life == 0) {
 					this.endOfGame();
 				}
-				
 				this.fruitView.getFallingDownFruitsList().remove(fruit);
 			}
-			//Log.i("DEBUG", "Fruit = "+fruit);
 		}
 		this.fruitView.postInvalidate();	
 	}
+	public int getFruitYFalling(int y){
+		y = getDifficulty(y);
+		if(this.score > 5000){
+			return y + 5;
+		}
+		if(this.score > 3000){
+			return y + 4;
+		}
+		if(this.score > 1000){
+			return y + 3;
+		}
+		if(this.score > 500){
+			return y + 2;
+		}
+		return y + 1;
+	}
+	
+	private int getDifficulty(int y) {
+		// TODO By Elliot
+		return y;
+	}
+
+	
 	
 	public void lostLife() {
 		runOnUiThread(new Runnable() {
@@ -213,6 +242,9 @@ public class CatchGameActivity extends Activity {
 	}
 
 	private void endOfGame() {
+		Intent jeu = new Intent(this, CatchGameScoreActivity.class);
+        startActivity(jeu);
+
 		this.timerFallingFruits.cancel();
 		this.timerCreatingFruits.cancel();
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
@@ -223,13 +255,10 @@ public class CatchGameActivity extends Activity {
 		}
 		editor.putInt("lastscore", this.score);
 		editor.commit();
-	}
-
-	// Faire apparaitre un fruit
-	private void timerCreateFruitEventHandler(){
-		//this.fallingDownFruitsList.add(new Rect(0, 200, 50, 50));
+		this.fruitView.getFallingDownFruitsList().clear();
 		
 	}
+
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -268,16 +297,23 @@ public class CatchGameActivity extends Activity {
 	}
 	
 	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
-		int px = this.width*200/1080;
-		int py = this.width*200/1980;
-		Log.i("INFO", "La surface en pixel autorisé est "+xRect+" "+touchX+" "+(xRect + 2*px));
-		Log.i("INFO", "La surface en pixel autorisé est "+(yRect - 3*py)+" "+touchY+" "+(yRect + py));
-		return     touchX >= xRect 
-				&& touchX <= xRect + 2*px 
-				&& touchY >= yRect - 3*py 
-				&& touchY <= yRect + py;
+		int px = this.width*150/1080;
+		int py = this.height*150/1980;
+		xRect += px; 
+		yRect += py;
+		float  precision = 1.3F;
+		if(         touchX >= xRect - precision*px 
+				&& touchX <= xRect + precision*px 
+				&& touchY >= yRect - precision*py
+				&& touchY <= yRect + precision*py){
+			Log.i("INFO","Vous avez cliqué autour du fruit");
+			return true;
+		}
+		return  false;
 	}
-	
+	public int getWidthFruit(){
+		return this.width/10;
+	}
 	public int getFruitBottom(){
 		return this.width/2;
 	}

@@ -24,7 +24,7 @@ public class CatchGameMenuActivity  extends Activity {
 		firstTouch = true;
 
 		
-		playButton = (ImageView) findViewById(R.id.ImageView06);
+		playButton = (ImageView) findViewById(R.id.ImageView006);
 		scoreButton = (ImageView) findViewById(R.id.ImageView04);
 		optionButton = (ImageView) findViewById(R.id.ImageView07);
 		

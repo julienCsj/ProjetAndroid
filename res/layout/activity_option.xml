@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <FrameLayout
+        android:id="@+id/FrameLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background1" >
@@ -31,7 +33,6 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:src="@drawable/options" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -83,34 +84,49 @@
                         android:layout_marginTop="20dp" />
                 </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.4"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/TextView02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Activer le skin caché"
-                    android:textColor="#000000" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:text="ToggleButton" />
-
-            </LinearLayout>
-
         </LinearLayout>
-
     </FrameLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/FrameLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.10" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/ImageView02"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/citronjeu" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.10" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/ImageView006"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/jouer" />
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>
