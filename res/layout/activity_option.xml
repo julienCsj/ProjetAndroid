@@ -59,7 +59,9 @@
                         android:id="@+id/SeekBar01"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp" />
+                        android:layout_marginTop="20dp" 
+                        android:progress="50"
+						android:max="100"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -80,7 +82,9 @@
                         android:id="@+id/seekBar2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp" />
+                        android:layout_marginTop="20dp"
+                        android:progress="50"
+						android:max="100" />
                 </LinearLayout>
             </LinearLayout>
 

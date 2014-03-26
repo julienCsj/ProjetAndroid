@@ -42,8 +42,8 @@ public class CatchGameActivity extends Activity {
 	private ImageView coeur3;
 	private TextView scoreTextView;
 	private TextView basket;
-	private int fruitFallDelay = 2;
-	private int fruitCreateDelay = 1000;
+	private int fruitFallDelay;
+	private int fruitCreateDelay;
 	private TextView affScore;
 	private TextView affNbCatch;
 	private int score = 0;
@@ -62,6 +62,14 @@ public class CatchGameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_catch_game);
+		
+		// On récupère les options (entre 0 et 100 actuellement)
+		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
+		// On récupère la bonne valeur suivant la clé, l'entier en deuxième paramètre est la valeur par défaut si
+		// la clé n'a pas été initialisée (le joueur n'est jamais allé dans les options)
+		fruitFallDelay = prefs.getInt("gravity", 2);
+		fruitCreateDelay = prefs.getInt("number", 1000);
+		
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		bStart = (ImageView)findViewById(R.id.imageView1);
 		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
@@ -216,7 +224,6 @@ public class CatchGameActivity extends Activity {
 		this.timerFallingFruits.cancel();
 		this.timerCreatingFruits.cancel();
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
-		int size = prefs.getAll().size();
 		Editor editor = prefs.edit();
 		if (this.score > prefs.getInt("bestscore", 0)) {
 			editor.putInt("bestscore", this.score);
