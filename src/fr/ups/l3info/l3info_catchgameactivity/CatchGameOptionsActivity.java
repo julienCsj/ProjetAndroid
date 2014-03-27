@@ -33,6 +33,10 @@ public class CatchGameOptionsActivity extends Activity {
 		number = (SeekBar) findViewById(R.id.SeekBar01);
 		gravity = (SeekBar) findViewById(R.id.seekBar2);
 		
+		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
+		number.setProgress(prefs.getInt("number", 100));
+		gravity.setProgress(prefs.getInt("gravity", 1));
+		
 		number.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			public void onStopTrackingTouch(SeekBar seekBar) {

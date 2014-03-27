@@ -56,6 +56,8 @@ public class CatchGameActivity extends Activity {
 	private int height;
 	private int width;
 	private int nbScore;
+	private int optionGravity;
+	private int optionNumber;
 	
 	
 	
@@ -69,8 +71,8 @@ public class CatchGameActivity extends Activity {
 		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
 		// On récupère la bonne valeur suivant la clé, l'entier en deuxième paramètre est la valeur par défaut si
 		// la clé n'a pas été initialisée (le joueur n'est jamais allé dans les options)
-		fruitFallDelay = prefs.getInt("gravity", 2);
-		fruitCreateDelay = prefs.getInt("number", 1000);
+		optionGravity = prefs.getInt("gravity", 1);
+		optionNumber = prefs.getInt("number", 100);
 		
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		bStart = (ImageView)findViewById(R.id.imageView1);
@@ -147,6 +149,7 @@ public class CatchGameActivity extends Activity {
 					default :
 						fruitCreateDelay = 200;
 				}
+				fruitCreateDelay -= optionNumber;
 				initTimerCreatingFruits();
 			}
 			
@@ -192,7 +195,7 @@ public class CatchGameActivity extends Activity {
 		this.fruitView.postInvalidate();	
 	}
 	public int getFruitYFalling(int y){
-		y = getDifficulty(y);
+		y += optionGravity;
 		if(this.score > 5000){
 			return y + 5;
 		}
@@ -207,12 +210,6 @@ public class CatchGameActivity extends Activity {
 		}
 		return y + 1;
 	}
-	
-	private int getDifficulty(int y) {
-		// TODO By Elliot
-		return y;
-	}
-
 	
 	
 	public void lostLife() {
