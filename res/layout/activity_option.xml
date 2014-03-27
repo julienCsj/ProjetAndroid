@@ -61,8 +61,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:max="100"
-                        android:progress="50" />
+                        android:max="2"
+                        android:progress="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,15 +106,9 @@
                         android:id="@+id/btnMusic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-<<<<<<< HEAD
                         android:layout_marginTop="20dp"
-                        android:progress="1"
-						android:max="2" />
-=======
                         android:layout_gravity="center"
                         android:text="ToggleButton" />
-
->>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

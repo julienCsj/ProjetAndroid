@@ -59,19 +59,9 @@ public class CatchGameActivity extends Activity {
 	private int height;
 	private int width;
 	private int nbScore;
-<<<<<<< HEAD
 	private int optionGravity;
 	private int optionNumber;
 	
-	
-	
-	
-=======
-
-
-
-
->>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,16 +71,10 @@ public class CatchGameActivity extends Activity {
 		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
 		// On récupère la bonne valeur suivant la clé, l'entier en deuxième paramètre est la valeur par défaut si
 		// la clé n'a pas été initialisée (le joueur n'est jamais allé dans les options)
-<<<<<<< HEAD
 		optionGravity = prefs.getInt("gravity", 1);
 		optionNumber = prefs.getInt("number", 100);
 		
-=======
-		fruitFallDelay = prefs.getInt("gravity", 2);
-		fruitCreateDelay = prefs.getInt("number", 1000);
 		music  = prefs.getBoolean("music", false);
-
->>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		bStart = (ImageView)findViewById(R.id.imageView1);
 		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
@@ -241,19 +225,8 @@ public class CatchGameActivity extends Activity {
 		}
 		return y + 1;
 	}
-<<<<<<< HEAD
-	
-	
-=======
-
-	private int getDifficulty(int y) {
-		// TODO By Elliot
-		return y;
-	}
 
 
-
->>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
 	public void lostLife() {
 		runOnUiThread(new Runnable() {
             @Override
