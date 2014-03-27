@@ -3,7 +3,9 @@ package fr.ups.l3info.l3info_catchgameactivity;
 import fr.ups.l3info.l3info_catchgamedatastructure.EnumFruit;
 import fr.ups.l3info.l3info_catchgamedatastructure.Fruit;
 import fr.ups.l3info.l3info_catchgametemplate.R;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +21,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,7 +37,7 @@ public class CatchGameActivity extends Activity {
 
 	private List<Fruit> fruitList;
 	private CatchGameView fruitView;
-	
+
 	private ImageView bStart;
 	private ImageView bRegame;
 	private ImageView coeur1;
@@ -48,6 +49,8 @@ public class CatchGameActivity extends Activity {
 	private int fruitCreateDelay;
 	private TextView affScore;
 	private TextView affNbCatch;
+	private MediaPlayer player;
+	private boolean music = false;
 	private int score = 0;
 	private int nbCatch = 0;
 	private int life;
@@ -56,24 +59,38 @@ public class CatchGameActivity extends Activity {
 	private int height;
 	private int width;
 	private int nbScore;
+<<<<<<< HEAD
 	private int optionGravity;
 	private int optionNumber;
 	
 	
 	
 	
+=======
+
+
+
+
+>>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_catch_game);
-		
+
 		// On récupère les options (entre 0 et 100 actuellement)
 		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
 		// On récupère la bonne valeur suivant la clé, l'entier en deuxième paramètre est la valeur par défaut si
 		// la clé n'a pas été initialisée (le joueur n'est jamais allé dans les options)
+<<<<<<< HEAD
 		optionGravity = prefs.getInt("gravity", 1);
 		optionNumber = prefs.getInt("number", 100);
 		
+=======
+		fruitFallDelay = prefs.getInt("gravity", 2);
+		fruitCreateDelay = prefs.getInt("number", 1000);
+		music  = prefs.getBoolean("music", false);
+
+>>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		bStart = (ImageView)findViewById(R.id.imageView1);
 		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
@@ -82,12 +99,12 @@ public class CatchGameActivity extends Activity {
 		this.scoreTextView = (TextView) findViewById(R.id.score);
 		this.basket = (TextView) findViewById(R.id.basket);
 		this.life = 3;
-		
+
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		this.height = metrics.heightPixels;
 		this.width = metrics.widthPixels;
-		
+
 		fruitCreateDelay = 1000;
 		fruitFallDelay = 2;
 
@@ -102,6 +119,17 @@ public class CatchGameActivity extends Activity {
 			}
 		});
 		fruitList = new ArrayList<Fruit>();
+		
+		// Set the music player if the user checked the option
+		if(this.music) {
+			player = MediaPlayer.create(CatchGameActivity.this, R.drawable.bgsound); 
+	        player.setLooping(true); // Set looping 
+	        player.setVolume(100,100); 
+	        player.start(); 
+		}
+		
+		
+		
 	}
 
 	private void buttonStartClickEventHandler() {
@@ -117,14 +145,14 @@ public class CatchGameActivity extends Activity {
 	private void buttonRegameClickEventHandler() {
 		this.buttonStartClickEventHandler();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.catch_game, menu);
 		return true;
 	}
-	
+
 
 	/*
 	 * Timer qui fait apparaitre les fruits
@@ -152,9 +180,9 @@ public class CatchGameActivity extends Activity {
 				fruitCreateDelay -= optionNumber;
 				initTimerCreatingFruits();
 			}
-			
+
 		}, fruitCreateDelay);
-		
+
 	}
 
 	// Faire apparaitre un fruit
@@ -173,7 +201,7 @@ public class CatchGameActivity extends Activity {
 			public void run() {
 				timerFallingFruitEventHandler();
 			}
-			
+
 		}, 0, fruitFallDelay);
 	}
 	/*
@@ -185,6 +213,9 @@ public class CatchGameActivity extends Activity {
 			if(fruit.getLocationInScreen().y > this.height) {
 				Log.i("VIE", "Une vie a été perdu");
 				this.life -= 1;
+				// Make the phone vibrate
+				Vibrator vib=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+		        vib.vibrate(100);
 				this.lostLife();
 				if(this.life == 0) {
 					this.endOfGame();
@@ -210,8 +241,19 @@ public class CatchGameActivity extends Activity {
 		}
 		return y + 1;
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+	private int getDifficulty(int y) {
+		// TODO By Elliot
+		return y;
+	}
+
+
+
+>>>>>>> f532f7815d6a3c1bdcf7aaa5f376f63c424a6e70
 	public void lostLife() {
 		runOnUiThread(new Runnable() {
             @Override
@@ -250,6 +292,9 @@ public class CatchGameActivity extends Activity {
 		Intent jeu = new Intent(this, CatchGameScoreActivity.class);
         startActivity(jeu);
 
+        Vibrator vib=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(1000);
+        
 		this.timerFallingFruits.cancel();
 		this.timerCreatingFruits.cancel();
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
@@ -261,15 +306,20 @@ public class CatchGameActivity extends Activity {
 		editor.commit();
 		this.fruitView.getFallingDownFruitsList().clear();
 		
+		// Stop the music
+		if(this.music) {
+			this.player.stop();
+		}
+
 	}
 
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 	    int touchX = (int) event.getX();
 	    int touchY = (int) event.getY();
 	    boolean touched = false;
-	    
+
 	    int action = event.getAction();
         switch (action) {
         case MotionEvent.ACTION_DOWN:
@@ -299,7 +349,7 @@ public class CatchGameActivity extends Activity {
         } 
 	    return true;
 	}
-	
+
 	public boolean getTouchFruitSurface(int touchX, int touchY, int xRect, int yRect){
 		int px = this.width*150/1080;
 		int py = this.height*150/1980;
@@ -321,6 +371,6 @@ public class CatchGameActivity extends Activity {
 	public int getFruitBottom(){
 		return this.width/2;
 	}
-	
+
 
 }

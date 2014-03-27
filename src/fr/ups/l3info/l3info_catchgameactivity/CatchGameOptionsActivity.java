@@ -1,5 +1,7 @@
 package fr.ups.l3info.l3info_catchgameactivity;
 
+import java.util.TooManyListenersException;
+
 import fr.ups.l3info.l3info_catchgametemplate.R;
 import android.app.Activity;
 import android.content.Context;
@@ -9,15 +11,19 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.ToggleButton;
 
 
 public class CatchGameOptionsActivity extends Activity {
 	
 	private SeekBar number;
 	private SeekBar gravity;
+	private ToggleButton buttonMusique;
 
 	private ImageView bPlay;
 	@Override
@@ -30,8 +36,12 @@ public class CatchGameOptionsActivity extends Activity {
 				buttonStartClickEventHandler();
 			}
 		});
+		
 		number = (SeekBar) findViewById(R.id.SeekBar01);
-		gravity = (SeekBar) findViewById(R.id.seekBar2);
+		gravity = (SeekBar) findViewById(R.id.SeekBar02);
+		buttonMusique = (ToggleButton) findViewById(R.id.btnMusic);
+		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
+		buttonMusique.setChecked(prefs.getBoolean("music", false));
 		
 		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
 		number.setProgress(prefs.getInt("number", 100));
@@ -80,6 +90,17 @@ public class CatchGameOptionsActivity extends Activity {
 				
 			}
 		});
+		
+		buttonMusique.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+	        @Override
+	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            	SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
+				Editor editor = prefs.edit();
+				editor.putBoolean("music", isChecked);
+				editor.commit();
+	        }
+	    });
 	}
 
 	private void buttonStartClickEventHandler() {
