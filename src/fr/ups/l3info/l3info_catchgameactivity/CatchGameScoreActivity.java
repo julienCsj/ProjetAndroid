@@ -5,9 +5,17 @@ import java.util.ArrayList;
 import fr.ups.l3info.l3info_catchgametemplate.R;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
@@ -16,11 +24,14 @@ import android.widget.TwoLineListItem;
 public class CatchGameScoreActivity extends Activity {
 	
 	private ListView liste;
+	private ImageView bPlay;
+	private Button bBack;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_score);
-		
+		bPlay = (ImageView)findViewById(R.id.ImageView006);
+		bBack = (Button)findViewById(R.id.button1);
 		// Structure to save scores.
 		SharedPreferences prefs = this.getSharedPreferences("scores", Context.MODE_PRIVATE);
 		
@@ -35,8 +46,28 @@ public class CatchGameScoreActivity extends Activity {
 
 	    //Assign adapter to ListView
 		liste.setAdapter(adapter); 
+		
+		bPlay.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				buttonStartClickEventHandler();
+			}
+		});
+
+		bBack.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				buttonBackClickEventHandler();
+			}
+		});
 	}
 
+	private void buttonStartClickEventHandler() {
+		Intent jeu = new Intent(this, CatchGameActivity.class);
+        startActivity(jeu);
+	}
+	private void buttonBackClickEventHandler() {
+		Intent jeu = new Intent(this, CatchGameMenuActivity.class);
+        startActivity(jeu);
+	}
 	@Override
 	protected void onDestroy() {
 		super.onDestroy(); 
