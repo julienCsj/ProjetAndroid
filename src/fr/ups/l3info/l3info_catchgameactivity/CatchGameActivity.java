@@ -261,7 +261,7 @@ public class CatchGameActivity extends Activity {
 	private void endOfGame() {
 		Intent jeu = new Intent(this, CatchGameScoreActivity.class);
         startActivity(jeu);
-
+        this.finish();
         Vibrator vib=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         vib.vibrate(1000);
         

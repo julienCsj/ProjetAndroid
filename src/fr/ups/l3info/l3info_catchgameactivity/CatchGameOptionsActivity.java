@@ -105,6 +105,7 @@ public class CatchGameOptionsActivity extends Activity {
 	private void buttonStartClickEventHandler() {
 		Intent jeu = new Intent(this, CatchGameActivity.class);
         startActivity(jeu);
+        this.finish();
 	}
 
 	@Override

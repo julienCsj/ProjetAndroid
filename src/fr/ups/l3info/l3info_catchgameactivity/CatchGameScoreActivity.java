@@ -63,10 +63,12 @@ public class CatchGameScoreActivity extends Activity {
 	private void buttonStartClickEventHandler() {
 		Intent jeu = new Intent(this, CatchGameActivity.class);
         startActivity(jeu);
+        this.finish();
 	}
 	private void buttonBackClickEventHandler() {
 		Intent jeu = new Intent(this, CatchGameMenuActivity.class);
         startActivity(jeu);
+        this.finish();
 	}
 	@Override
 	protected void onDestroy() {
