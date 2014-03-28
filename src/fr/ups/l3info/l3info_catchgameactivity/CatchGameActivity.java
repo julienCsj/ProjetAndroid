@@ -112,9 +112,6 @@ public class CatchGameActivity extends Activity {
 	        player.setVolume(100,100); 
 	        player.start(); 
 		}
-		
-		
-		
 	}
 
 	private void buttonStartClickEventHandler() {
