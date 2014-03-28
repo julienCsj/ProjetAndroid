@@ -40,8 +40,11 @@ public class CatchGameOptionsActivity extends Activity {
 		number = (SeekBar) findViewById(R.id.SeekBar01);
 		gravity = (SeekBar) findViewById(R.id.SeekBar02);
 		buttonMusique = (ToggleButton) findViewById(R.id.btnMusic);
+		
 		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
 		buttonMusique.setChecked(prefs.getBoolean("music", false));
+		number.setProgress(prefs.getInt("number", 100));
+		gravity.setProgress(prefs.getInt("gravity", 1));
 		
 		number.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			

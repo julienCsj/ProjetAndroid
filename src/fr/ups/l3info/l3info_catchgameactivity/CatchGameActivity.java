@@ -59,10 +59,9 @@ public class CatchGameActivity extends Activity {
 	private int height;
 	private int width;
 	private int nbScore;
-
-
-
-
+	private int optionGravity;
+	private int optionNumber;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,10 +71,10 @@ public class CatchGameActivity extends Activity {
 		SharedPreferences prefs = getSharedPreferences("options", Context.MODE_PRIVATE);
 		// On récupère la bonne valeur suivant la clé, l'entier en deuxième paramètre est la valeur par défaut si
 		// la clé n'a pas été initialisée (le joueur n'est jamais allé dans les options)
-		fruitFallDelay = prefs.getInt("gravity", 2);
-		fruitCreateDelay = prefs.getInt("number", 1000);
+		optionGravity = prefs.getInt("gravity", 1);
+		optionNumber = prefs.getInt("number", 100);
+		
 		music  = prefs.getBoolean("music", false);
-
 		fruitView = (CatchGameView)findViewById(R.id.l3InfoCatchGameView1);
 		bStart = (ImageView)findViewById(R.id.imageView1);
 		this.coeur1 = (ImageView) findViewById(R.id.coeur1);
@@ -85,6 +84,7 @@ public class CatchGameActivity extends Activity {
 		this.basket = (TextView) findViewById(R.id.basket);
 		this.life = 3;
 
+		// Retrieves informations from screen
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		this.height = metrics.heightPixels;
@@ -108,7 +108,7 @@ public class CatchGameActivity extends Activity {
 		// Set the music player if the user checked the option
 		if(this.music) {
 			player = MediaPlayer.create(CatchGameActivity.this, R.drawable.bgsound); 
-	        player.setLooping(true); // Set looping 
+	        player.setLooping(true);
 	        player.setVolume(100,100); 
 	        player.start(); 
 		}
@@ -159,6 +159,7 @@ public class CatchGameActivity extends Activity {
 					default :
 						fruitCreateDelay = 200;
 				}
+				fruitCreateDelay -= optionNumber;
 				initTimerCreatingFruits();
 			}
 
@@ -207,7 +208,7 @@ public class CatchGameActivity extends Activity {
 		this.fruitView.postInvalidate();	
 	}
 	public int getFruitYFalling(int y){
-		y = getDifficulty(y);
+		y += optionGravity;
 		if(this.score > 5000){
 			return y + 5;
 		}
@@ -222,12 +223,6 @@ public class CatchGameActivity extends Activity {
 		}
 		return y + 1;
 	}
-
-	private int getDifficulty(int y) {
-		// TODO By Elliot
-		return y;
-	}
-
 
 
 	public void lostLife() {
