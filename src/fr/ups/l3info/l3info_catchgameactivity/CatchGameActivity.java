@@ -111,9 +111,6 @@ public class CatchGameActivity extends Activity {
 	        player.setVolume(100,100); 
 	        player.start(); 
 		}
-		
-		
-		
 	}
 
 	private void buttonStartClickEventHandler() {
@@ -309,6 +306,7 @@ public class CatchGameActivity extends Activity {
             	if(this.getTouchFruitSurface(touchX, touchY, xRect, yRect)) {
             		this.fruitView.getFallingDownFruitsList().remove(fruit);
             		this.score += 20;
+            		this.score += this.getFruitYFalling(0);
             		nbCatch++;
             		runOnUiThread(new Runnable() {
                         @Override
